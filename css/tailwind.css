@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-extrabold text-primary;
+  }
+
+  a {
+    @apply inline-block;
+  }
+
+  a,
+  button,
+  input,
+  textarea {
+    @apply focus:outline-none focus-visible:ring-2 ring-blue-400;
+  }
+
+  kbd {
+    @apply font-mono text-sm px-1.5 py-0.5 text-gray-300 ml-0.5 bg-gray-900 rounded;
+  }
+}
+
+@layer components {
+  .link {
+    @apply font-semibold text-blue-600;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 space-x-1.5 text-sm font-semibold transition bg-white border rounded cursor-pointer select-none whitespace-nowrap hover:border-gray-300 text-primary;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 space-x-1.5 text-sm font-semibold text-white transition bg-blue-500 border border-transparent rounded cursor-pointer select-none hover:bg-blue-600 whitespace-nowrap;
+  }
+
+  .btn--icon {
+    @apply w-10 h-10 p-0;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 placeholder-gray-600 bg-gray-900 border-gray-800 rounded;
+  }
+
+  .hr {
+    @apply h-px bg-gray-200;
+  }
+}
+
+@layer utilities {
+  .text-primary {
+    @apply text-gray-900;
+  }
+  .text-secondary {
+    @apply text-gray-700;
+  }
+  .text-tertiary {
+    @apply text-gray-500;
+  }
+}
