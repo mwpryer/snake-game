@@ -1,0 +1,20 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "build:css": "postcss css/tailwind.css -o css/style.css",
+    "purge:css": "cross-env NODE_ENV=production postcss css/tailwind.css -o css/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.2.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.0.3"
+  }
+}
