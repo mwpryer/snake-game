@@ -4,6 +4,9 @@ import Game from "./Game.js";
 const gameEl = document.getElementById("game");
 const canvas = document.getElementById("canvas");
 const newGameBtn = document.getElementById("new-game-btn");
+const pauseGameBtn = document.getElementById("pause-game-btn");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
 const optionsBtn = document.getElementById("options-btn");
 const optionsMdlEl = document.getElementById("options-mdl");
 const optionsMdlNumCellsTf = document.getElementById("num-cells-tf");
@@ -44,6 +47,8 @@ const game = new Game(canvas.getContext("2d"), options);
 function play() {
   playMdlEl.style.display = "none";
   backdropEl.style.display = "none";
+  playIcon.style.display = "none";
+  pauseIcon.style.display = "block";
   game.play();
 }
 
@@ -51,6 +56,8 @@ function play() {
 function pause() {
   playMdlEl.style.display = "block";
   backdropEl.style.display = "block";
+  playIcon.style.display = "block";
+  pauseIcon.style.display = "none";
   game.pause();
 }
 
@@ -62,6 +69,15 @@ function handlePlay() {
 // New game button handler
 function handleNewGame() {
   initialize();
+}
+
+// Pause game button handler
+function handlePauseGame() {
+  if (game.active) {
+    pause();
+  } else {
+    play();
+  }
 }
 
 // Options button handler
@@ -145,6 +161,7 @@ function handleResize() {
 document.addEventListener("click", handleGameFocus);
 document.addEventListener("touchstart", handleGameFocus);
 newGameBtn.addEventListener("click", handleNewGame);
+pauseGameBtn.addEventListener("click", handlePauseGame);
 optionsBtn.addEventListener("click", handleOpenOptions);
 optionsMdlConfirmBtn.addEventListener("click", handleSetOptions);
 optionsMdlCancelBtn.addEventListener("click", handleCloseOptions);
@@ -171,6 +188,8 @@ function initialize() {
   playMdlEl.style.display = "block";
   backdropEl.style.display = "block";
   gameoverMdlEl.style.display = "none";
+  playIcon.style.display = "block";
+  pauseIcon.style.display = "none";
 
   game.initialize();
 }
