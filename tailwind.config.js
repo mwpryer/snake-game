@@ -1,8 +1,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: ["./index.html"],
-  darkMode: false,
+  content: ["./index.html"],
   theme: {
     container: {
       center: true,
