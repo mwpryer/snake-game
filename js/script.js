@@ -46,6 +46,7 @@ const game = new Game(canvas.getContext("2d"), options);
 // Start/resume game
 function play() {
   playMdlEl.style.display = "none";
+  optionsMdlEl.style.display = "none";
   backdropEl.style.display = "none";
   playIcon.style.display = "none";
   pauseIcon.style.display = "block";
@@ -63,7 +64,11 @@ function pause() {
 
 // Play button handler
 function handlePlay() {
-  play();
+  if (game.isGameover) {
+    optionsMdlEl.style.display = "none";
+  } else {
+    play();
+  }
 }
 
 // New game button handler
@@ -73,9 +78,10 @@ function handleNewGame() {
 
 // Pause game button handler
 function handlePauseGame() {
-  if (game.active) {
+  if (game.isActive) {
     pause();
   } else {
+    if (game.isGameover) return;
     play();
   }
 }
@@ -113,8 +119,7 @@ function handleSetOptions() {
   if (newFramerate > framerateMax) newFramerate = framerateMax;
   if (newFramerate < framerateMin) newFramerate = framerateMin;
 
-  let newInitialLength =
-    parseInt(optionsMdlInitialLengthTf.value) || initialLength;
+  let newInitialLength = parseInt(optionsMdlInitialLengthTf.value) || initialLength;
   if (newInitialLength > newCells) newInitialLength = newCells;
   if (newInitialLength < initialLengthMin) newInitialLength = initialLengthMin;
 
@@ -129,7 +134,7 @@ function handleSetOptions() {
     allowWrap,
   });
   // Prepare new game if one not in progress
-  if (!game.started) initialize();
+  if (!game.isStarted) initialize();
   optionsMdlEl.style.display = "none";
 }
 
@@ -144,7 +149,7 @@ function handleGameFocus(e) {
     game.focus = true;
   } else {
     game.focus = false;
-    if (game.active) pause();
+    if (game.isActive) pause();
   }
 }
 
@@ -171,10 +176,7 @@ window.addEventListener("resize", handleResize());
 
 // Initialization, resize canvas according to screen size and prepare game
 function initialize() {
-  const width =
-    gameEl.parentElement.offsetWidth < MAX_DIMENSIONS
-      ? gameEl.parentElement.offsetWidth
-      : MAX_DIMENSIONS;
+  const width = gameEl.parentElement.offsetWidth < MAX_DIMENSIONS ? gameEl.parentElement.offsetWidth : MAX_DIMENSIONS;
   const options = game.getOptions();
   const { cells } = options;
 
@@ -188,6 +190,7 @@ function initialize() {
   playMdlEl.style.display = "block";
   backdropEl.style.display = "block";
   gameoverMdlEl.style.display = "none";
+  pauseGameBtn.disabled = false;
   playIcon.style.display = "block";
   pauseIcon.style.display = "none";
 
