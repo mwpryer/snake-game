@@ -4,6 +4,9 @@ import Food from "./Food.js";
 // DOM elements
 const scoreLbl = document.getElementById("score-lbl");
 const highscoreLbl = document.getElementById("highscore-lbl");
+const pauseGameBtn = document.getElementById("pause-game-btn");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
 const gameoverMdlEl = document.getElementById("gameover-mdl");
 const gameoverMdlScoreLbl = document.getElementById("gameover-mdl-score-lbl");
 const backdropEl = document.getElementById("backdrop");
@@ -14,8 +17,10 @@ export default class Game {
     this.options = options;
     this.score = 0;
     this.highscore = 0;
-    this.started = false;
-    this.active = false;
+
+    this.isStarted = false;
+    this.isActive = false;
+    this.isGameover = false;
 
     this.handleKeydown = this.handleKeydown.bind(this);
     this.handleTouchStart = this.handleTouchStart.bind(this);
@@ -26,8 +31,11 @@ export default class Game {
   initialize() {
     this.currOptions = { ...this.options };
     this.score = 0;
-    this.started = false;
-    this.active = false;
+
+    this.isStarted = false;
+    this.isActive = false;
+    this.isGameover = false;
+
     this.snake = new Snake(this.ctx, this.currOptions);
     this.snake.initialize();
     this.food = new Food(this.ctx, this.currOptions);
@@ -76,8 +84,9 @@ export default class Game {
   // Cleanup and show modal
   gameover() {
     clearInterval(this.intervalId);
-    this.started = false;
-    this.active = false;
+    this.isStarted = false;
+    this.isActive = false;
+    this.isGameover = true;
     document.removeEventListener("keydown", this.handleKeydown);
     document.removeEventListener("touchstart", this.handleTouchStart);
     document.removeEventListener("touchmove", this.handleTouchMove);
@@ -92,37 +101,37 @@ export default class Game {
     gameoverMdlScoreLbl.textContent = this.score;
     gameoverMdlEl.style.display = "block";
     backdropEl.style.display = "block";
+    pauseGameBtn.disabled = true;
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
   }
 
   // Loop game
   gameLoop() {
     clearInterval(this.intervalId);
-    this.intervalId = setInterval(
-      () => this.game(),
-      1000 / this.currOptions.framerate
-    );
+    this.intervalId = setInterval(() => this.game(), 1000 / this.currOptions.framerate);
   }
 
   // Start/resume game
   play() {
-    if (this.active) return;
+    if (this.isActive || this.isGameover) return;
 
-    if (!this.started) {
+    if (!this.isStarted) {
       // First time playing, initialize snake velocity
       this.snake.move();
-      this.started = true;
+      this.isStarted = true;
     }
 
     this.gameLoop();
-    this.active = true;
+    this.isActive = true;
   }
 
   // Pause game
   pause() {
-    if (!this.active) return;
+    if (!this.isActive || this.isGameover) return;
 
     clearInterval(this.intervalId);
-    this.active = false;
+    this.isActive = false;
   }
 
   // Paint game board
@@ -179,7 +188,7 @@ export default class Game {
   // Handle game keypress
   handleKeydown(e) {
     // Ignore input when game is not in focus or actively running
-    if (!this.focus || !this.active) return;
+    if (!this.focus || !this.isActive) return;
 
     // Stop page scrolling
     if ([9, 32, 37, 38, 39, 40].includes(e.keyCode)) e.preventDefault();
@@ -212,7 +221,7 @@ export default class Game {
   // Handle mobile swipe
   handleTouchMove(e) {
     // Ignore input when game is not in focus or actively running
-    if (!this.focus || !this.active) return;
+    if (!this.focus || !this.isActive) return;
 
     // Stop page scrolling
     e.preventDefault();
