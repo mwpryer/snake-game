@@ -16,7 +16,7 @@ export default class Game {
     this.ctx = ctx;
     this.options = options;
     this.score = 0;
-    this.highscore = 0;
+    this.highscore = localStorage.getItem("highscore") ?? 0;
 
     this.isStarted = false;
     this.isActive = false;
@@ -43,6 +43,8 @@ export default class Game {
     this.paint();
 
     scoreLbl.textContent = 0;
+    highscoreLbl.textContent = this.highscore;
+
     document.addEventListener("keydown", this.handleKeydown);
     document.addEventListener("touchstart", this.handleTouchStart);
     document.addEventListener("touchmove", this.handleTouchMove, {
@@ -95,6 +97,7 @@ export default class Game {
     if (this.score > this.highscore) {
       this.highscore = this.score;
       highscoreLbl.textContent = this.highscore;
+      localStorage.setItem("highscore", this.highscore);
     }
 
     // Show gameover modal
@@ -109,7 +112,10 @@ export default class Game {
   // Loop game
   gameLoop() {
     clearInterval(this.intervalId);
-    this.intervalId = setInterval(() => this.game(), 1000 / this.currOptions.framerate);
+    this.intervalId = setInterval(
+      () => this.game(),
+      1000 / this.currOptions.framerate,
+    );
   }
 
   // Start/resume game
