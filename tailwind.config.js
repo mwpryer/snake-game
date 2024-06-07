@@ -1,34 +1,16 @@
 const colors = require("tailwindcss/colors");
 
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ["./index.html"],
   theme: {
-    container: {
-      center: true,
-      padding: "1rem",
-      screens: {
-        sm: "768px",
-        md: "768px",
-        lg: "768px",
-        xl: "768px",
-      },
-    },
     extend: {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
       },
       colors: {
-        gray: {
-          ...colors.gray,
-          1000: "#050505",
-        },
+        gray: colors.zinc,
       },
     },
   },
-  variants: {
-    extend: {
-      ringWidth: ["focus-visible"],
-    },
-  },
-  plugins: [],
 };

@@ -22,7 +22,7 @@ const gameoverMdlBtn = document.getElementById("gameover-mdl-btn");
 const backdropEl = document.getElementById("backdrop");
 
 // Constraints
-const MAX_DIMENSIONS = 600;
+const MAX_DIMENSIONS = 700;
 const [cellsMin, cellsMax] = [2, 50];
 const [framerateMin, framerateMax] = [1, 30];
 const [initialLengthMin, initialLengthMax] = [1, cellsMax];

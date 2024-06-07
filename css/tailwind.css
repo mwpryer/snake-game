@@ -3,66 +3,32 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-extrabold text-primary;
-  }
-
-  a {
-    @apply inline-block;
-  }
-
-  a,
-  button,
-  input,
-  textarea {
-    @apply focus:outline-none focus-visible:ring-2 ring-blue-400;
-  }
-
-  kbd {
-    @apply font-mono text-sm px-1.5 py-0.5 text-gray-300 ml-0.5 bg-gray-900 rounded;
-  }
-}
-
 @layer components {
-  .link {
-    @apply font-semibold text-blue-600;
-  }
-
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 space-x-1.5 text-sm font-semibold transition bg-white border rounded cursor-pointer select-none whitespace-nowrap hover:border-gray-300 text-primary disabled:cursor-not-allowed disabled:bg-gray-300;
+    @apply inline-flex cursor-pointer items-center justify-center rounded px-4 py-2.5 text-sm font-bold shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 active:translate-y-px disabled:translate-y-0 disabled:cursor-default disabled:shadow-none;
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 space-x-1.5 text-sm font-semibold text-white transition bg-blue-500 border border-transparent rounded cursor-pointer select-none hover:bg-blue-600 whitespace-nowrap;
+  .btn--primary {
+    @apply bg-lime-400 text-lime-900 hover:bg-lime-300 disabled:bg-lime-500/50 disabled:text-gray-400;
+  }
+
+  .btn--secondary {
+    @apply bg-white/10 text-white hover:bg-white/20 disabled:bg-white/5 disabled:text-gray-400;
   }
 
   .btn--icon {
-    @apply w-10 h-10 p-0;
+    @apply h-[40px] w-[40px] p-0;
   }
 
   .input {
-    @apply w-full px-4 py-2 placeholder-gray-600 bg-gray-900 border-gray-800 rounded;
-  }
-
-  .hr {
-    @apply h-px bg-gray-200;
+    @apply w-full rounded border-gray-500 bg-gray-900 px-2 py-1 placeholder-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500;
   }
 }
 
-@layer utilities {
-  .text-primary {
-    @apply text-gray-900;
-  }
-  .text-secondary {
-    @apply text-gray-700;
-  }
-  .text-tertiary {
-    @apply text-gray-500;
-  }
+.card {
+  @apply rounded-sm bg-gray-800 shadow-lg;
+  box-shadow:
+    inset 0px 1px 0px 0px rgba(255, 255, 255, 0.02),
+    inset 0px 0px 0px 1px rgba(255, 255, 255, 0.02),
+    0px 0px 0px 1px rgba(0, 0, 0, 0.25);
 }

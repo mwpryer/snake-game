@@ -22,7 +22,7 @@ export default class Food {
 
   // Paint food
   paint() {
-    const foodColour = "#6ee7b7";
+    const foodColour = "#ef4444";
     const foodRelSize = 0.6;
     const { cellSize } = this.options;
 

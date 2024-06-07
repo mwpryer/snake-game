@@ -136,8 +136,8 @@ export default class Game {
 
   // Paint game board
   paintBoard() {
-    const gridColour1 = "#374151";
-    const gridColour2 = "#3e495c";
+    const gridColour1 = "#27272a";
+    const gridColour2 = "#232326";
     const { cells, cellSize } = this.currOptions;
 
     for (let i = 0; i < cells; i++) {

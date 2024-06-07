@@ -65,13 +65,7 @@ export default class Snake {
 
     // Recurse if any tail segment out of bounds
     for (const segment of this.tail) {
-      if (
-        segment.x < 0 ||
-        segment.y < 0 ||
-        segment.x > cells - 1 ||
-        segment.y > cells - 1
-      )
-        return this.initialize();
+      if (segment.x < 0 || segment.y < 0 || segment.x > cells - 1 || segment.y > cells - 1) return this.initialize();
     }
   }
 
@@ -95,8 +89,7 @@ export default class Snake {
 
     // Check for head-tail collision
     for (const segment of this.tail) {
-      if (segment.x === this.head.x && segment.y === this.head.y)
-        this.alive = false;
+      if (segment.x === this.head.x && segment.y === this.head.y) this.alive = false;
     }
 
     // Handle snake moving into game boundaries
@@ -111,8 +104,7 @@ export default class Snake {
       if (bCollision) this.head.y = 0;
       if (lCollision) this.head.x = cells - 1;
     } else {
-      if (tCollision || rCollision || bCollision || lCollision)
-        this.alive = false;
+      if (tCollision || rCollision || bCollision || lCollision) this.alive = false;
     }
   }
 
@@ -156,12 +148,12 @@ export default class Snake {
 
   // Paint snake
   paint() {
-    const snakeHeadColour = "#e5e7eb";
-    const snakeSegmentColour = "#e5e7eb";
-    const snakeFoodColour = "#6ee7b7";
+    const snakeHeadColour = "#a3e635";
+    const snakeSegmentColour = "#a3e635";
+    const snakeFoodColour = "#ef4444";
     const snakeRelSize = 0.8;
     const snakeFoodRelSize = 0.8;
-    const snakeBorderRadius = 2;
+    const snakeBorderRadius = 0;
     const { cellSize } = this.options;
 
     // Paint tail
